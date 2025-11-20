@@ -1,0 +1,20 @@
+{
+    "name": "mcoelho/stands",
+    "description": "Site M Coelho Stands - Estandes para Feiras e Eventos",
+    "type": "project",
+    "require": {
+        "php": "^8.0",
+        "slim/slim": "^4.12",
+        "slim/psr7": "^1.6",
+        "slim/twig-view": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "MCStands\\": "src/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8000 -t public"
+    }
+}
+
