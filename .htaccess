@@ -1,0 +1,20 @@
+# Redireciona todas as requisições para o diretório public/
+# Este arquivo é necessário quando o document root não é o diretório public/
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Se a requisição não é para um arquivo ou diretório existente
+    # e não está tentando acessar o diretório public/, redireciona para public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Protege arquivos sensíveis
+<FilesMatch "^(composer\.(json|lock)|\.env|\.git)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+

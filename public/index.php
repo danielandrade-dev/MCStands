@@ -6,26 +6,46 @@ use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 
-require __DIR__ . '/../vendor/autoload.php';
+// Detectar automaticamente o caminho do autoload
+// Funciona tanto localmente quanto em hospedagem compartilhada
+$autoloadPath = __DIR__ . '/../vendor/autoload.php';
+if (!file_exists($autoloadPath)) {
+    // Tentar caminho alternativo para hospedagens compartilhadas
+    $autoloadPath = dirname(__DIR__) . '/vendor/autoload.php';
+}
+require $autoloadPath;
+
+// Definir base path para URLs (útil em subdiretórios)
+$basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
 
 // Criar aplicação Slim
 $app = AppFactory::create();
 
-// Configurar Twig
+// Configurar base path se necessário
+if ($basePath !== '') {
+    $app->setBasePath($basePath);
+}
+
+// Configurar Twig com cache desabilitado para desenvolvimento
+// Em produção, você pode habilitar o cache alterando para: ['cache' => __DIR__ . '/../cache/twig']
 $twig = Twig::create(__DIR__ . '/../templates', ['cache' => false]);
 $app->add(TwigMiddleware::create($app, $twig));
 
+// Variável global para base_path nos templates
+$basePath = $app->getBasePath();
+
 // Rota principal
-$app->get('/', function (Request $request, Response $response) {
+$app->get('/', function (Request $request, Response $response) use ($basePath) {
     $view = Twig::fromRequest($request);
     return $view->render($response, 'home.twig', [
         'pageTitle' => 'M Coelho Stands | Estandes para Feiras e Eventos',
-        'pageDescription' => 'M Coelho Stands - criação e montagem de estandes para feiras, congressos e eventos corporativos.'
+        'pageDescription' => 'M Coelho Stands - criação e montagem de estandes para feiras, congressos e eventos corporativos.',
+        'base_path' => $basePath
     ]);
 });
 
 // Rota para processar formulário de contato
-$app->post('/contato', function (Request $request, Response $response) {
+$app->post('/contato', function (Request $request, Response $response) use ($basePath) {
     $data = $request->getParsedBody();
     
     // Aqui você pode processar os dados do formulário
@@ -42,7 +62,8 @@ $app->post('/contato', function (Request $request, Response $response) {
         'pageTitle' => 'M Coelho Stands | Estandes para Feiras e Eventos',
         'pageDescription' => 'M Coelho Stands - criação e montagem de estandes para feiras, congressos e eventos corporativos.',
         'formSuccess' => true,
-        'formMessage' => 'Obrigado! Seus dados foram recebidos. Em breve entraremos em contato.'
+        'formMessage' => 'Obrigado! Seus dados foram recebidos. Em breve entraremos em contato.',
+        'base_path' => $basePath
     ]);
 });
 
