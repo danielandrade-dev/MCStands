@@ -27,8 +27,13 @@ $app->add(TwigMiddleware::create($app, $twig));
 $app->get('/', function (Request $request, Response $response) {
     $view = Twig::fromRequest($request);
     return $view->render($response, 'home.twig', [
-        'pageTitle' => 'M Coelho Stands | Estandes para Feiras e Eventos',
-        'pageDescription' => 'M Coelho Stands - criação e montagem de estandes para feiras, congressos e eventos corporativos.'
+        'pageTitle' => 'M Coelho Stands | Empresa de Montagem de Estandes SP | Estandes para Feiras',
+        'pageDescription' => 'Empresa de montagem de estandes em SP. Especializada em construção e montagem de estandes para feiras, estandes corporativos, estandes promocionais e estandes para eventos. Montadora de estandes com mais de 10 anos de experiência.',
+        'canonicalUrl' => 'https://www.mcoelhostands.com.br',
+        'ogUrl' => 'https://www.mcoelhostands.com.br',
+        'ogTitle' => 'M Coelho Stands - Empresa de Montagem de Estandes SP',
+        'ogDescription' => 'Empresa de montagem de estandes em SP. Especializada em construção e montagem de estandes para feiras e eventos corporativos.',
+        'ogImage' => 'https://www.mcoelhostands.com.br/public/img/logo.jpeg'
     ]);
 });
 
@@ -47,8 +52,13 @@ $app->post('/contato', function (Request $request, Response $response) {
     
     $view = Twig::fromRequest($request);
     return $view->render($response, 'home.twig', [
-        'pageTitle' => 'M Coelho Stands | Estandes para Feiras e Eventos',
-        'pageDescription' => 'M Coelho Stands - criação e montagem de estandes para feiras, congressos e eventos corporativos.',
+        'pageTitle' => 'M Coelho Stands | Empresa de Montagem de Estandes SP | Estandes para Feiras',
+        'pageDescription' => 'Empresa de montagem de estandes em SP. Especializada em construção e montagem de estandes para feiras, estandes corporativos, estandes promocionais e estandes para eventos. Montadora de estandes com mais de 10 anos de experiência.',
+        'canonicalUrl' => 'https://www.mcoelhostands.com.br',
+        'ogUrl' => 'https://www.mcoelhostands.com.br',
+        'ogTitle' => 'M Coelho Stands - Empresa de Montagem de Estandes SP',
+        'ogDescription' => 'Empresa de montagem de estandes em SP. Especializada em construção e montagem de estandes para feiras e eventos corporativos.',
+        'ogImage' => 'https://www.mcoelhostands.com.br/public/img/logo.jpeg',
         'formSuccess' => true,
         'formMessage' => 'Obrigado! Seus dados foram recebidos. Em breve entraremos em contato.'
     ]);

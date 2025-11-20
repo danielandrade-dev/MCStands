@@ -2,9 +2,52 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>{% block title %}{{ pageTitle|default('M Coelho Stands') }}{% endblock %}</title>
+  <title>{% block title %}{{ pageTitle|default('M Coelho Stands - Empresa de Montagem de Estandes SP | Estandes para Feiras') }}{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="{% block description %}{{ pageDescription|default('M Coelho Stands - criação e montagem de estandes para feiras, congressos e eventos corporativos.') }}{% endblock %}" />
+  <meta name="description" content="{% block description %}{{ pageDescription|default('Empresa de montagem de estandes em SP. Especializada em construção e montagem de estandes para feiras, estandes corporativos, estandes promocionais e estandes para eventos. Montadora de estandes com mais de 10 anos de experiência.') }}{% endblock %}" />
+  <meta name="keywords" content="montagem de estandes, empresa de montagem de estandes, montadora de estandes, estandes para feiras, construção de estandes, montagem de estandes SP, estandes promocionais, estandes corporativos, estandes para eventos, estandes em feiras de negócios SP" />
+  <meta name="author" content="M Coelho Stands" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="{% block canonical %}{{ canonicalUrl|default('https://www.mcoelhostands.com.br') }}{% endblock %}" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% block ogUrl %}{{ ogUrl|default('https://www.mcoelhostands.com.br') }}{% endblock %}" />
+  <meta property="og:title" content="{% block ogTitle %}{{ pageTitle|default('M Coelho Stands - Empresa de Montagem de Estandes SP') }}{% endblock %}" />
+  <meta property="og:description" content="{% block ogDescription %}{{ pageDescription|default('Empresa de montagem de estandes em SP. Especializada em construção e montagem de estandes para feiras e eventos corporativos.') }}{% endblock %}" />
+  <meta property="og:image" content="{% block ogImage %}{{ ogImage|default('https://www.mcoelhostands.com.br/public/img/logo.jpeg') }}{% endblock %}" />
+  <meta property="og:locale" content="pt_BR" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{% block twitterTitle %}{{ pageTitle|default('M Coelho Stands - Empresa de Montagem de Estandes SP') }}{% endblock %}" />
+  <meta name="twitter:description" content="{% block twitterDescription %}{{ pageDescription|default('Empresa de montagem de estandes em SP. Especializada em construção e montagem de estandes para feiras e eventos corporativos.') }}{% endblock %}" />
+  <meta name="twitter:image" content="{% block twitterImage %}{{ ogImage|default('https://www.mcoelhostands.com.br/public/img/logo.jpeg') }}{% endblock %}" />
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "M Coelho Stands",
+    "description": "Empresa de montagem de estandes em São Paulo. Especializada em construção e montagem de estandes para feiras, estandes corporativos e estandes promocionais.",
+    "url": "https://www.mcoelhostands.com.br",
+    "telephone": "+5511999999999",
+    "email": "contato@mcoelhostands.com.br",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "São Paulo",
+      "addressRegion": "SP",
+      "addressCountry": "BR"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "São Paulo"
+    },
+    "serviceType": ["Montagem de Estandes", "Construção de Estandes", "Estandes para Feiras", "Estandes Corporativos", "Estandes Promocionais"],
+    "priceRange": "$$"
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -605,15 +648,20 @@
 
     .portfolio-thumb {
       background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-      height: 200px;
+      height: 250px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      padding: 1.5rem;
-      text-align: center;
+      overflow: hidden;
       transition: transform var(--transition-slow);
+      position: relative;
+    }
+
+    .portfolio-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .portfolio-content {
@@ -1016,7 +1064,7 @@
     <div class="nav-container">
       <a href="/" class="logo">
         <div class="logo-graphic">
-          <img src="/public/img/logo.jpeg" alt="" class="logo-img" />
+          <img src="/public/img/logo.jpeg" alt="M Coelho Stands - Empresa de Montagem de Estandes SP" class="logo-img" />
         </div>
         <div class="logo-text">
           <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
@@ -1057,7 +1105,7 @@
   <footer>
     <div class="footer-inner">
       <div>
-        © {{ "now"|date("Y") }} M Coelho Stands – Estandes para feiras e eventos.
+        © {{ "now"|date("Y") }} M Coelho Stands – Empresa de Montagem de Estandes SP | Estandes para Feiras e Eventos.
         Todos os direitos reservados.
       </div>
       <div class="footer-links">
