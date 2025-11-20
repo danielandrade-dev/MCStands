@@ -25,32 +25,22 @@ composer start
 
 ## 📤 Deploy em Hospedagem Compartilhada (Hostgator, etc.)
 
-### Opção 1: Document Root é o diretório `public/` (Recomendado)
+### Deploy Simplificado
 
-1. **Faça upload de todos os arquivos** para o servidor via FTP/SFTP
-2. **Configure o document root** no painel da hospedagem para apontar para o diretório `public/`
-3. **Acesse seu site** - deve funcionar imediatamente
+Agora o projeto tem um `index.php` na raiz, tornando o deploy muito mais simples!
 
-### Opção 2: Document Root é a raiz do projeto
-
-Se você não puder alterar o document root:
-
-1. **Faça upload de todos os arquivos** para o servidor
-2. O arquivo `.htaccess` na raiz já está configurado para redirecionar para `public/`
-3. **Acesse seu site** - deve funcionar automaticamente
+1. **Faça upload de todos os arquivos** para o diretório `public_html` (ou o diretório do seu domínio) via FTP/SFTP
+2. **Acesse seu site** - deve funcionar imediatamente!
 
 ### Passos Detalhados para Hostgator:
 
 1. **Acesse o File Manager** no cPanel da Hostgator
 2. **Navegue até a pasta public_html** (ou o diretório do seu domínio)
-3. **Faça upload de todos os arquivos** do projeto
-4. **Configure o document root** (se possível):
-   - No cPanel, vá em "Subdomínios" ou "Domínios"
-   - Altere o document root para apontar para `public_html/public`
-5. **Verifique as permissões**:
+3. **Faça upload de todos os arquivos** do projeto diretamente para `public_html/`
+4. **Verifique as permissões**:
    - Pastas: 755
    - Arquivos: 644
-6. **Instale as dependências** via SSH (se disponível):
+5. **Instale as dependências** via SSH (se disponível):
 ```bash
 cd public_html
 composer install --no-dev --optimize-autoloader
@@ -61,14 +51,13 @@ Ou faça upload da pasta `vendor/` completa do seu ambiente local.
 ### Estrutura de Diretórios no Servidor
 
 ```
-public_html/ (ou seu diretório)
+public_html/ (document root)
 ├── .htaccess
+├── index.php          ← Arquivo principal na raiz!
 ├── composer.json
 ├── composer.lock
 ├── config.php
 ├── public/
-│   ├── .htaccess
-│   ├── index.php
 │   └── img/
 │       └── logo.jpeg
 ├── src/
@@ -78,6 +67,8 @@ public_html/ (ou seu diretório)
 └── vendor/
     └── (dependências do Composer)
 ```
+
+**Nota:** Não é necessário configurar document root ou fazer redirecionamentos complexos. O `index.php` na raiz funciona diretamente!
 
 ## ⚙️ Configurações
 

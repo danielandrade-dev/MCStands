@@ -1,7 +1,32 @@
+# Dependências
 /vendor/
-composer.lock
+
+# Cache
+/cache/
+*.cache
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDEs
 .idea/
 .vscode/
-*.log
-.DS_Store
+*.sublime-project
+*.sublime-workspace
 
+# Logs
+*.log
+logs/
+
+# Arquivos temporários
+tmp/
+temp/

@@ -1,20 +1,58 @@
-# Redireciona todas as requisições para o diretório public/
-# Este arquivo é necessário quando o document root não é o diretório public/
+# Configuração para hospedagem PHP compartilhada (Hostgator, etc.)
+# Compatível com Apache 2.2 e 2.4
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Se a requisição não é para um arquivo ou diretório existente
-    # e não está tentando acessar o diretório public/, redireciona para public/
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} !^/public/
-    RewriteRule ^(.*)$ public/$1 [L]
+    # Redireciona HTTP para HTTPS (descomente se tiver SSL)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Permite acesso direto a arquivos e diretórios existentes (imagens, CSS, JS, etc.)
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+    
+    # Redireciona todas as outras requisições para index.php
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Configurações de segurança
+<IfModule mod_headers.c>
+    # Protege contra clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Protege contra XSS
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Previne MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Configurações de cache para assets estáticos
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# Compressão GZIP (se disponível)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
 </IfModule>
 
 # Protege arquivos sensíveis
-<FilesMatch "^(composer\.(json|lock)|\.env|\.git)">
-    Order allow,deny
-    Deny from all
+<FilesMatch "^(composer\.(json|lock)|\.env|\.git|config\.php)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
